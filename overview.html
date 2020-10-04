@@ -1,5 +1,33 @@
 <?!= include('header') ?>
 
+<div id="piechart"></div>
 
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+
+google.charts.load('current', { 'packages': [ 'corechart' ] });
+google.charts.setOnLoadCallback(runQuery);
+
+function runQuery() {
+    var query = new google.visualization.Query('<?!= ssUrl ?>' + '&sheet=Overview&range=C5:D14');
+    query.send(handleResponse);
+}
+
+function handleResponse(response) {
+
+    // error!
+    if (response.isError()) {
+        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+        return;
+    }
+
+    // draw chart with this data
+    var data = response.getDataTable();
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, { title: 'Overview', height: 400 });
+}
+
+</script>
 
 <?!= include('footer') ?>
