@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<base target="_top" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/5f2931af2a.js" crossorigin="anonymous"></script>
+
+<style>
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+a {
+    color: rgb(70, 105, 140);
+    text-decoration: none;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0;
+}
+
+i.fa {
+    text-align: center;
+    width: 1.35em;
+}
+
+span.small {
+    font-size: 0.8em;
+}
+
+input[type="text"] {
+    padding: 8px 10px;
+    background-color: #f5f5f5;
+    border: 0;
+    border-radius: 5px;
+}
+
+#navigation-sidebar {
+    float: left;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 170px;
+    background-color: #333;
+    color: #fff;
+    z-index: 200;
+}
+
+#navigation {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    margin-top: 60px;
+}
+
+#navigation li {
+    padding: 0;
+    margin: 0;
+    height: 38px;
+    white-space: nowrap;
+    position: relative;
+}
+
+#navigation li a {
+    padding-left: 16px;
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    height: 38px;
+    line-height: 38px;
+    width: 100%;
+    width: calc(100% - 16px);
+    white-space: nowrap;
+    overflow: hidden; /* changed later dynamically */
+}
+
+#navigation li:hover {
+    background-color: #444;
+}
+
+#navigation li.active {
+    background-color: #2096ce;
+}
+
+div.navigation-popover {
+    position: absolute;
+    width: 0px;
+    height: 38px;
+    top: 0px;
+    left: 50px;
+    background-color: #444;
+    z-index: 300;
+    overflow: hidden;
+    padding-left: 10px;
+}
+
+#top-bar {
+    height: 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #555;
+    z-index: 300;
+}
+
+#top-bar span.top-title {
+    height: 40px;
+    font-size: 18px;
+    color: #fff;
+    line-height: 40px;
+    float: left; /* fixes chrome */
+}
+
+#top-bar span.site-title {
+    display: inline-block;
+    min-width: 140px;
+    max-width: 300px;
+    font-weight: 600;
+    padding-left: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#top-bar span.school-title {
+    font-weight: 300;
+    padding-left: 16px;
+}
+
+#top-bar span.account-title {
+    font-size: 90%;
+    font-weight: 400;
+    float: right;
+    padding-right: 16px;
+}
+
+#top-bar span.top-button {
+    font-size: 90%;
+    font-weight: 400;
+    float: right;
+}
+
+#top-bar span.top-button.action {
+    background-color: #333;
+}
+
+#top-bar span.top-title a {
+    height: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    padding: 0 10px;
+}
+
+#top-bar span.top-title a:hover {
+    background-color: #696969;
+}
+
+#top-bar span.top-title.active a {
+    background-color: #2096ce;
+}
+
+#content {
+    margin-top: 40px;
+    margin-left: 170px;
+    padding: 20px;
+}
+
+#content.no-margin {
+    padding: 0 !important;
+}
+
+.device-status {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 0.4em 0.8em;
+    display: inline-block;
+    font-size: 90%;
+    font-weight: Bold;
+    text-transform: uppercase;
+}
+
+.device-status.available    { background-color: #b7e1cd; }
+.device-status.checked-out  { background-color: #eeeeee; }
+.device-status.incoming     { background-color: #9fc5e8; }
+.device-status.repair       { background-color: #fce8b2; }
+.device-status.lost         { background-color: #b4a7d6; }
+.device-status.unknown      { background-color: #ead1dc; }
+.device-status.disposed     { background-color: #f4c7c3; }
+
+.device-info-container {
+    max-width: 1500px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.device-info {
+    min-width: 300px;
+    margin: 1em 0;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fcfcfc;
+}
+
+.device-info.status { background-color: #faf7fc; }
+.device-info.info   { background-color: #ebfaf1; }
+.device-info.usage  { background-color: #edfcfc; }
+
+/* help text */
+.device-info span[title] { border-bottom: 1px dashed #ccc; }
+.device-info span[title]:hover { cursor: help; }
+
+.device-info td:first-child {
+    font-weight: bold;
+    padding: 2px 5px;
+}
+
+.device-info td[colspan="2"] {
+    text-align: center;
+}
+
+.device-info td.status {
+    height: 46px;
+}
+
+.device-info td.barcode,
+.device-info td.serial {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.device-log th,
+.device-log td {
+    text-align: left;
+    white-space: nowrap;
+    padding: 5px 10px;
+}
+
+.device-log th:last-child,
+.device-log td:last-child {
+    white-space: normal;
+    width: 100%;
+}
+
+</style>
+</head>
+<body>
+
+<div id="top-bar">
+    <span class="top-title account-title"><a href="https://myaccount.google.com"><i class="fa fa-user"></i> <?= email ?></a></span>
+    <span class="top-title site-title">Chromebook Inventory</span>
+    <span class="top-title school-title">Silvestri Junior High School</span>
+</div>
+
+<div id="navigation-sidebar">
+    <ul id="navigation">
+        <li<?!= page == 'index' ? ' class="active"' : '' ?>><a href="<?= url ?>?page=index"><i class="fa fa-chart-pie"></i> <span>Overview</span></a></li>
+        <li<?!= page == 'status' ? ' class="active"' : '' ?>><a href="<?= url ?>?page=status"><i class="fa fa-info-circle"></i> <span>Status</span></a></li>
+        <li<?!= page == 'exports' ? ' class="active"' : '' ?>><a href="<?= url ?>?page=inspect"><i class="fa fa-search"></i> <span>Inspect</span></a></li>
+        <li<?!= page == 'exports' ? ' class="active"' : '' ?>><a href="<?= url ?>?page=repair"><i class="fa fa-tools"></i> <span>Repair</span></a></li>
+        <li<?!= page == 'exports' ? ' class="active"' : '' ?>><a href="<?= url ?>?page=bulk-scan"><i class="fa fa-barcode"></i> <span>Bulk scan</span></a></li>
+        <li<?!= page == 'imports' ? ' class="active"' : '' ?>><a href="<?= url ?>?page=imports"><i class="fa fa-file-import"></i> <span>Imports</span></a></li>
+        <li<?!= page == 'exports' ? ' class="active"' : '' ?>><a href="<?= url ?>?page=exports"><i class="fa fa-file-download"></i> <span>Exports</span></a></li>
+    </ul>
+</div>
+
+<div id="content">

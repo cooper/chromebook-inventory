@@ -1,0 +1,95 @@
+<?!= include('header') ?>
+
+<h1>Chromebook Status</h1>
+
+<i class="fa fa-barcode"></i> <input id="barcode" type="text" placeholder="Scan 14-digit barcode" /><br />
+
+<div class="device-info-container">
+    <table class="device-info status">
+        <tr><th colspan="2">Status</th></tr>
+        <tr><td colspan="2" class="status">
+            <span class="device-status available"><i class="fa fa-check"></i> Available</span>
+        </td></tr> 
+        <tr></tr>
+        <tr><td>Provisioned?</td><td class="provision-status">Yes</td></tr>   
+        <tr><td>OS version</td><td class="os-version">85.0.4183.84</td></tr>        
+        <tr><td>Firmware</td><td class="firmware">Google_Coral.10068.81.0</td></tr>        
+        <tr><td><span title="After this auto-update expiration date, the device no longer receives OS updates">Expiration</span></td><td class="expiration">6/1/2024 <span class="small">(in 3 yr 7 mo)</span></td></tr>         
+    </table>
+    <table class="device-info info">
+        <tr><th colspan="2">Device info</th></tr>
+        <tr><td>Barcode</td><td class="barcode">50536000002636</td></tr>        
+        <tr><td>Serial</td><td class="serial">NXGUKAA0019111A1C27600</td></tr>   
+        <tr><td>Make</td><td class="make">Acer</td></tr>        
+        <tr><td>Model</td><td class="model">C732</td></tr>      
+        <tr><td>Fund</td><td class="fund">Title I</td></tr>        
+        <tr><td>Acquired</td><td class="acquired">5/5/2019 <span class="small">(1 yr 5 mo ago)</span></td></tr>  
+    </table>
+    <table class="device-info usage">
+        <tr><th colspan="2">Usage</th></tr>
+        <tr><td>Last sync</td><td class="sync-date">9/12/2020 <span class="small">(22 days ago)</span></td></tr>        
+        <tr><td>Last activity</td><td class="activity-date">9/11/2020 <span class="small">(23 days ago)</span></td></tr>        
+        <tr><td>Recent user</td><td class="recent-user">mitchell.2292458</td></tr>            
+        <tr><td>Internal IP</td><td class="internal-ip">10.182.103.21</td></tr>            
+        <tr><td>External IP</td><td class="external-ip">169.241.60.20</td></tr>
+        <tr><td><span title="Location is estimated by querying the external IP address on a third party geolocation service">Location</span></td><td class="location">Paradise, NV</td></tr>
+    </table>
+</div>
+
+<h2>Device log</h2>
+
+<table class="device-log">
+    <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Status change</th>
+        <th>By user</th>
+        <th>Ticket #</th>
+        <th>Comments</th>
+    </tr>
+    <tr>
+        <td>9/30/2020</td>
+        <td>Location Confirmed</td>
+        <td>No change</td>
+        <td>coopems1</td>
+        <td></td>
+        <td>Bulk scan confirmed location in Crate #8</td>
+    </tr>
+    <tr>
+        <td>7/23/2020</td>
+        <td>Passed Inspection</td>
+        <td><span class="device-status available"><i class="far fa-circle"></i> Circulation</span></td>
+        <td>coopems1</td>
+        <td></td>
+        <td>All tests passed, scanned into Crate #8</td>
+    </tr>
+    <tr>
+        <td>7/23/2020</td>
+        <td>Returned-Repaired</td>
+        <td>
+            <span class="device-status incoming"><i class="fa fa-angle-double-right"></i> Incoming</span>
+        </td>
+        <td>coopems1</td>
+        <td>2491250</td>
+        <td>Staymobile replaced LCD</td>
+    </tr>
+    <tr>
+        <td>6/2/2020</td>
+        <td>Broken-Sent out for repair</td>
+        <td>
+            <span class="device-status repair"><i class="fa fa-tools"></i> Pending Repair</span>
+        </td>
+        <td>dolsoma</td>
+        <td>2491250</td>
+        <td>Broken LCD panel</td>
+    </tr>
+</table>
+
+<script>
+
+    // focus barcode initially
+    $('#barcode').focus()
+
+</script>
+
+<?!= include('footer') ?>
