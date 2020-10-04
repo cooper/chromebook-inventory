@@ -12,8 +12,15 @@ let user = {
 }
 
 // pages that are allowed
-const pages = ['index', 'not-found', 'status', 'update-status']
-let page = 'index'
+const pages = ['overview', 'not-found', 'status', 'update-status']
+let page = 'overview'
+
+const pages = {
+  'overview':       handleOverview,
+  'not-found':      null,
+  'status':         null,
+  'update-status':  null
+}
 
 // handle GET request
 function doGet(request) {
@@ -21,14 +28,20 @@ function doGet(request) {
 
   // find the page
   if (!page)
-    page = 'index' // otherwise show index
-  if (!pages.includes(page))
+    page = 'overview' // otherwise show overview
+  if (!pages.hasOwnProperty(page))
     page = 'not-found'
   
-  // template parameters
+  // apply template parameters
   let tmpl = HtmlService.createTemplateFromFile(page)
+  applyTmplParmas(tmpl)
+
+  // call handler if there is one
+  let handler = pages[page]
+  if (handler)
+    handler(request, tmpl)
   
-  return applyTmplParmas(tmpl).evaluate().setTitle(page + ' | ' + schoolName)
+  return tmpl.evaluate().setTitle(page + ' | ' + schoolName)
 }
 
 // include template
