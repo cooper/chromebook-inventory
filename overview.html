@@ -32,6 +32,11 @@ function drawCharts() {
         9: { color: '#ead1dc' }, // Out of Date
     }});
 
+    // available chart
+    drawPieChart('available-chart', <?!= availableChartJSON ?>)
+
+    // checkout chart
+    drawPieChart('checkout-chart', <?!= checkoutChartJSON ?>)
 
 }
 
