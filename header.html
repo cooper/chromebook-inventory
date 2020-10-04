@@ -261,9 +261,9 @@ div.navigation-popover {
 <body>
 
 <div id="top-bar">
-    <span class="top-title account-title"><a href="https://myaccount.google.com"><i class="fa fa-user"></i> <?= email ?></a></span>
+    <span class="top-title account-title"><a href="https://myaccount.google.com"><i class="fa fa-user"></i> <?= user.username ?></a></span>
     <span class="top-title site-title">Chromebook Inventory</span>
-    <span class="top-title school-title">Silvestri Junior High School</span>
+    <span class="top-title school-title"><a href="<?= ssUrl ?>" target="_blank"><?= schoolName ?></a></span>
 </div>
 
 <div id="navigation-sidebar">
