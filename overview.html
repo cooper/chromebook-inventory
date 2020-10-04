@@ -1,18 +1,54 @@
 <?!= include('header') ?>
 
-<div id="piechart"></div>
+<h1>Overview</h1>
+<div id="overview-chart"></div>
+ 
+<h2>Availability by model</h2>
+<div id="available-chart"></div>
+
+<h2>Check outs by model</h2>
+<div id="checkout-chart"></div>
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
 
 google.charts.load('current', { 'packages': [ 'corechart' ] });
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawCharts);
 
-function drawChart() {
-    var data = google.visualization.arrayToDataTable(<?!= chartJSON ?>);
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, { title: 'Overview', height: 400 });
+function drawCharts() {
+
+    // overview chart
+    drawPieChart('overview-chart', <?!= overviewChartJSON ?>, { slices: {
+        0: { color: '#b7e1cd' }, // Available
+        1: { color: '#eeeeee' }, // Checked Out
+        2: { color: '#9fc5e8' }, // Incoming
+        3: { color: '#fce8b2' }, // Out for Repair
+        4: { color: '#fce8b2' }, // Pending Repair
+        5: { color: '#f4c7c3' }, // BER/For Parts 
+        6: { color: '#b4a7d6' }, // Lost/Stolen
+        7: { color: '#f4c7c3' }, // Transferred
+        8: { color: '#ead1dc' }, // Unknown
+        9: { color: '#ead1dc' }, // Out of Date
+    }});
+
+
+}
+
+function drawPieChart(id, array, options) {
+    if (!options)
+        options = {};
+    var data = google.visualization.arrayToDataTable(array);
+    var chart = new google.visualization.PieChart(document.getElementById(id));
+    chart.draw(data, Object.assign(options, {
+        width: 600,
+        height: 400,
+        pieHole: 0.4,
+        pieSliceText: 'value',
+        chartArea : { top: 0, bottom: 0, left: 0,  right: 0 },
+        pieSliceTextStyle: { color: 'black', bold: true },
+        legend: { position: 'labeled' },
+    }));
 }
 
 </script>

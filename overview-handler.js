@@ -1,8 +1,12 @@
 // create pie chart
 function handleOverview(request, tmpl) {
 
+    /////////////////////////
+    // OVERVIEW PIE CHART ///
+    /////////////////////////
+
     // fetch the values
-    let range = ss.getSheets()[0].getRange('C5:D14')
+    let range = ss.getSheets()[SHEET_OVERVIEW].getRange(RANGE_OVERVIEW_CHART)
     let values = range.getDisplayValues()
 
     // force numeric context of counts
@@ -12,5 +16,16 @@ function handleOverview(request, tmpl) {
     // inject header row
     values.unshift(['Type', 'Count'])
 
-    tmpl.chartJSON = JSON.stringify(values)
+    tmpl.overviewChartJSON = JSON.stringify(values)
+
+    //////////////////////////
+    // AVAILABLE PIE CHART ///
+    //////////////////////////
+
+    ss.getSheets()[SHEET_INVENTORY]
+
+    /////////////////////////
+    // CHECKOUT PIE CHART ///
+    /////////////////////////
+
 }
