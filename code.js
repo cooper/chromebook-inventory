@@ -1,3 +1,5 @@
+/** @OnlyCurrentDoc */
+
 // fetch the spreadsheet
 let ss = SpreadsheetApp.getActiveSpreadsheet()
 
