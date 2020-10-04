@@ -12,21 +12,22 @@ let user = {
 }
 
 // pages that are allowed
-const pages = ['overview', 'not-found', 'status', 'update-status']
 let page = 'overview'
-
-const pages = {
-  'overview':       handleOverview,
-  'not-found':      null,
-  'status':         null,
-  'update-status':  null
-}
 
 // handle GET request
 function doGet(request) {
-  page = request.parameter.page
+
+  // this has to be here
+  // because if defined at file level, the handler functions are not yet defined
+  var pages = {
+    'overview':       handleOverview,
+    'not-found':      null,
+    'status':         null,
+    'update-status':  null
+  }
 
   // find the page
+  page = request.parameter.page
   if (!page)
     page = 'overview' // otherwise show overview
   if (!pages.hasOwnProperty(page))
