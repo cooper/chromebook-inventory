@@ -7,7 +7,7 @@ const   SHEET_OVERVIEW              = 0,
         SHEET_INVENTORY             = 3
 
 // OVERVIEW
-const   RANGE_OVERVIEW_CHART        = 'C5:D14'
+const   RANGE_OVERVIEW_CHART        = 'C5:D13' // exclude Out of Date
 
 // INVENTORY
 const   COL_INVENTORY_BARCODE       = 0,

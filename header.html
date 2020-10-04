@@ -183,6 +183,18 @@ div.navigation-popover {
     padding: 0 !important;
 }
 
+table.last-expand th,
+table.last-expand td {
+    text-align: left;
+    white-space: nowrap;
+}
+
+table.last-expand th:last-child,
+table.last-expand td:last-child {
+    white-space: normal;
+    width: 100%;
+}
+
 .device-status {
     border-radius: 5px;
     background-color: #eee;
@@ -200,6 +212,20 @@ div.navigation-popover {
 .device-status.lost         { background-color: #b4a7d6; }
 .device-status.unknown      { background-color: #ead1dc; }
 .device-status.disposed     { background-color: #f4c7c3; }
+
+.overview-status {
+    margin: 20px 0;
+}
+
+.overview-status .device-status {
+    font-size: 0.8em;
+}
+
+.overview-status td {
+    height: 2em;
+    padding-right: 20px;
+    vertical-align: middle;
+}
 
 .device-info-container {
     max-width: 1500px;
@@ -245,15 +271,7 @@ div.navigation-popover {
 
 .device-log th,
 .device-log td {
-    text-align: left;
-    white-space: nowrap;
     padding: 5px 10px;
-}
-
-.device-log th:last-child,
-.device-log td:last-child {
-    white-space: normal;
-    width: 100%;
 }
 
 </style>

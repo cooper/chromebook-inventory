@@ -6,16 +6,28 @@ function handleOverview(request, tmpl) {
     //////////////////////////
 
     // fetch the values
-    let range = ss.getSheets()[SHEET_OVERVIEW].getRange(RANGE_OVERVIEW_CHART)
+    let range  = ss.getSheets()[SHEET_OVERVIEW].getRange(RANGE_OVERVIEW_CHART)
     let values = range.getDisplayValues()
+    let orderedCounts = []
+    let counts = {}
 
     // force numeric context of counts
-    for (let i = 0; i < values.length; i++)
-        values[i][1] = parseInt(values[i][1])
+    for (let i = 0; i < values.length; i++) {
+        var val = parseInt(values[i][1])
+        values[i][1] = val
+        orderedCounts[i] = val
+        counts[ camelCase(values[i][0]) ] = val
+    }
 
     // inject header row
     values.unshift(['Type', 'Count'])
 
+    // totals
+    counts.operational  = orderedCounts.slice(0, 3).reduce((a, b) => a + b, 0)
+    counts.repairable   = orderedCounts.slice(0, 5).reduce((a, b) => a + b, 0)
+    counts.total        = orderedCounts.reduce((a, b) => a + b, 0)
+
+    tmpl.overviewCounts = counts
     tmpl.overviewChartJSON = JSON.stringify(values)
 
 
