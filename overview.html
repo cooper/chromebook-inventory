@@ -3,57 +3,67 @@
 <h1>Overview</h1>
 <div id="overview-chart"></div>
  
-<h2>Availability by model</h2>
-<div id="available-chart"></div>
-
-<h2>Check outs by model</h2>
-<div id="checkout-chart"></div>
+<h2>Model breakdown</h2>
+<div id="model-chart"></div>
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
 
-google.charts.load('current', { 'packages': [ 'corechart' ] });
+google.charts.load('current', { 'packages': [ 'corechart', 'table' ] });
 google.charts.setOnLoadCallback(drawCharts);
 
 function drawCharts() {
 
     // overview chart
-    drawPieChart('overview-chart', <?!= overviewChartJSON ?>, { slices: {
-        0: { color: '#b7e1cd' }, // Available
-        1: { color: '#eeeeee' }, // Checked Out
-        2: { color: '#9fc5e8' }, // Incoming
-        3: { color: '#fce8b2' }, // Out for Repair
-        4: { color: '#fce8b2' }, // Pending Repair
-        5: { color: '#f4c7c3' }, // BER/For Parts 
-        6: { color: '#b4a7d6' }, // Lost/Stolen
-        7: { color: '#f4c7c3' }, // Transferred
-        8: { color: '#ead1dc' }, // Unknown
-        9: { color: '#ead1dc' }, // Out of Date
-    }});
-
-    // available chart
-    drawPieChart('available-chart', <?!= availableChartJSON ?>)
-
-    // checkout chart
-    drawPieChart('checkout-chart', <?!= checkoutChartJSON ?>)
-
-}
-
-function drawPieChart(id, array, options) {
-    if (!options)
-        options = {};
-    var data = google.visualization.arrayToDataTable(array);
-    var chart = new google.visualization.PieChart(document.getElementById(id));
-    chart.draw(data, Object.assign(options, {
+    drawChart(google.visualization.PieChart, 'overview-chart', <?!= overviewChartJSON ?>, {
         width: 600,
         height: 400,
         pieHole: 0.4,
         pieSliceText: 'value',
-        chartArea : { top: 0, bottom: 0, left: 0,  right: 0 },
-        pieSliceTextStyle: { color: 'black', bold: true },
+        pieSliceTextStyle: { color: 'black', bold: true, fontSize: 18 },
         legend: { position: 'labeled' },
-    }));
+        chartArea : { top: 0, bottom: 0, left: 0,  right: 0 },
+        slices: {
+            0: { color: '#b7e1cd' }, // Available
+            1: { color: '#eeeeee' }, // Checked Out
+            2: { color: '#9fc5e8' }, // Incoming
+            3: { color: '#fce8b2' }, // Out for Repair
+            4: { color: '#fce8b2' }, // Pending Repair
+            5: { color: '#f4c7c3' }, // BER/For Parts 
+            6: { color: '#b4a7d6' }, // Lost/Stolen
+            7: { color: '#f4c7c3' }, // Transferred
+            8: { color: '#ead1dc' }, // Unknown
+            9: { color: '#ead1dc' }  // Out of Date
+        }
+    });
+
+    // available chart
+    drawChart(google.visualization.BarChart, 'model-chart', <?!= modelChartJSON ?>, {
+        width: 600,
+        height: 300,
+        legend: { position: 'none' },
+        titlePosition: 'in',
+        axisTitlesPosition: 'in',
+        hAxis: { textPosition: 'in' },
+        chartArea : {
+            width:  '100%',
+            height: '100%',
+            top:    0,
+            bottom: 0,
+            left:   100,
+            right:  0
+        }
+    })
+
+}
+
+function drawChart(type, id, array, options) {
+    if (!options)
+        options = {};
+    var data = google.visualization.arrayToDataTable(array);
+    var chart = new type(document.getElementById(id));
+    chart.draw(data, options);
 }
 
 </script>

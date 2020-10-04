@@ -1,9 +1,9 @@
 // create pie chart
 function handleOverview(request, tmpl) {
 
-    /////////////////////////
-    // OVERVIEW PIE CHART ///
-    /////////////////////////
+    //////////////////////////
+    /// OVERVIEW PIE CHART ///
+    //////////////////////////
 
     // fetch the values
     let range = ss.getSheets()[SHEET_OVERVIEW].getRange(RANGE_OVERVIEW_CHART)
@@ -20,9 +20,10 @@ function handleOverview(request, tmpl) {
 
 
     // count available and checkout
-    let available  = {},
-        checkedOut = {};
-    let inventory = ss.getSheets()[SHEET_INVENTORY].getRange(RANGE_INVENTORY).getDisplayValues()
+    let circulation = {},
+        available   = {},
+        checkedOut  = {}
+    let inventory   = ss.getSheets()[SHEET_INVENTORY].getRange(RANGE_INVENTORY).getDisplayValues()
 
     inventory.forEach((row) => {
 
@@ -32,33 +33,38 @@ function handleOverview(request, tmpl) {
 
         let makeModel = row[COL_INVENTORY_MAKE] + ' ' + row[COL_INVENTORY_MODEL]
 
+        // increment for entire circulation
+        circulation[makeModel] = ++circulation[makeModel] || 1
+
         // see if checked out and increment proper counter
         if (row[COL_INVENTORY_CHECKOUT])
             checkedOut[makeModel] = ++checkedOut[makeModel] || 1
-
         else
             available[makeModel] = ++available[makeModel] || 1
     })
 
-    //////////////////////////
-    // AVAILABLE PIE CHART ///
-    //////////////////////////
+    ///////////////////////
+    /// MODEL BAR CHART ///
+    ///////////////////////
 
-    values = Object.entries(available)
+    let chartHeaderRow       = ['Status'],
+        chartCirculationRow  = ['Circulation'],
+        chartCheckedOutRow   = ['Checked Out'],
+        chartAvailableRow    = ['Available']
 
-    // inject header row
-    values.unshift(['Model', 'Count'])
+    Object.keys(circulation).forEach((makeModel) => {
+        let model = makeModel.split(/\s/)[1]
+        let circ  = circulation[makeModel] || 0,
+            out   = checkedOut[makeModel]  || 0,
+            avail = available[makeModel]   || 0
 
-    tmpl.availableChartJSON = JSON.stringify(values)
+        chartHeaderRow.push(makeModel, { role: 'annotation' })
+        chartCirculationRow.push(circ, circ.toLocaleString()  + ' ' + model)
+        chartCheckedOutRow.push(out, out.toLocaleString()  + ' ' + model)
+        chartAvailableRow.push(avail, avail.toLocaleString()  + ' ' + model)
 
-    /////////////////////////
-    // CHECKOUT PIE CHART ///
-    /////////////////////////
+    })
 
-    values = Object.entries(checkedOut)
-
-    // inject header row
-    values.unshift(['Model', 'Count'])
-
-    tmpl.checkoutChartJSON = JSON.stringify(values)
+    tmpl.modelChartJSON = JSON.stringify([
+        chartHeaderRow, chartCirculationRow, chartCheckedOutRow, chartAvailableRow ])
 }
