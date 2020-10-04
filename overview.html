@@ -6,37 +6,37 @@
 <h2>Status breakdown</h2>
 <table class="overview-status last-expand">
     <tr>
-        <td><?= overviewCounts.available ?></td>
+        <td><?= overviewCounts.available.toLocaleString() ?></td>
         <td><span class="device-status available"><i class="fa fa-check"></i> Available</span></td>
         <td>Chromebooks that are clean, inspected, tested, and ready to checkout</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.checkedOut ?></td>
+        <td><?= overviewCounts.checkedOut.toLocaleString() ?></td>
         <td><span class="device-status checked-out"><i class="fa fa-user"></i> Checked Out</span></td>
         <td>Chromebooks that are checked out</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.incoming ?></td>
+        <td><?= overviewCounts.incoming.toLocaleString() ?></td>
         <td><span class="device-status incoming"><i class="fa fa-angle-double-right"></i> Incoming</span></td>
         <td>Chromebooks that have just been checked in or repaired and are now pending inspection</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.outForRepair ?></td>
+        <td><?= overviewCounts.outForRepair.toLocaleString() ?></td>
         <td><span class="device-status repair"><i class="fa fa-tools"></i> Out for Repair</span></td>
         <td>Chromebooks that are currently off-site or waiting to be picked up for repair</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.pendingRepair ?></td>
+        <td><?= overviewCounts.pendingRepair.toLocaleString() ?></td>
         <td><span class="device-status repair"><i class="fa fa-tools"></i> Pending Repair</span></td>
         <td>Chromebooks that need repairs and are still on-campus</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.markedLost ?></td>
+        <td><?= overviewCounts.markedLost.toLocaleString() ?></td>
         <td><span class="device-status lost"><i class="fa fa-binoculars"></i> Marked Lost</span></td>
         <td>Chromebooks that have been Marked Lost or reported stolen</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.BER ?></td>
+        <td><?= overviewCounts.BER.toLocaleString() ?></td>
         <td><span class="device-status disposed"><i class="fa fa-trash-alt"></i> BER</span></td>
         <td>Chromebooks that were deemed Beyond Economical Repair and disposed or used for parts</td>
     </tr>
@@ -46,22 +46,22 @@
         <td>Chromebooks that were transferred to other schools</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.unknown ?></td>
+        <td><?= overviewCounts.unknown.toLocaleString() ?></td>
         <td><span class="device-status unknown"><i class="far fa-question-circle"></i> Unknown</span></td>
         <td>Chromebooks for which the fate is not known</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.operational ?></td>
+        <td><?= overviewCounts.operational.toLocaleString() ?></td>
         <td>Operational total</td>
         <td>Every Chromebook that is in working order (excludes those pending repair and marked lost)</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.repairable ?></td>
+        <td><?= overviewCounts.repairable.toLocaleString() ?></td>
         <td>Repairable total</td>
         <td>Every Chromebook that is working or has potential to re-enter circulation (not yet BER)</td>
     </tr>
     <tr>
-        <td><?= overviewCounts.total ?></td>
+        <td><?= overviewCounts.total.toLocaleString() ?></td>
         <td>All-time total</td>
         <td>Every Chromebook ever known to have existed at this site</td>
     </tr>
