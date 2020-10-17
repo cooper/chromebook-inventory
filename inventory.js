@@ -1,3 +1,11 @@
+let globalInventory
+
+function getInventory() {
+    if (!globalInventory)
+        globalInventory = ss.getSheets()[SHEET_INVENTORY].getRange(RANGE_INVENTORY).getDisplayValues()
+    return globalInventory
+}
+
 // find device by full serial number
 function inventoryFindBySerial(sn) {
 

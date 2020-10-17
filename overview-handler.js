@@ -34,7 +34,8 @@ function handleOverview(request, tmpl) {
     // count available and checkout
     let circulation = {},
         available   = {},
-        checkedOut  = {}
+        checkedOut  = {},
+        inventory   = getInventory()
 
     inventory.forEach((row) => {
 
