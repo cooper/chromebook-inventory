@@ -19,6 +19,10 @@ let page = 'overview'
 // handle GET request
 function doGet(request) {
 
+  // JSON API
+  if (request.parameter.action)
+    return doGetAction(request)
+
   // this has to be here
   // because if defined at file level, the handler functions are not yet defined
   var pages = {
