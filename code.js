@@ -2,6 +2,7 @@
 
 // fetch the spreadsheet
 let ss = SpreadsheetApp.getActiveSpreadsheet()
+let inventory = ss.getSheets()[SHEET_INVENTORY].getRange(RANGE_INVENTORY).getDisplayValues()
 
 // configuration
 let schoolName = ss.getName()

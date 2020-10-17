@@ -35,7 +35,6 @@ function handleOverview(request, tmpl) {
     let circulation = {},
         available   = {},
         checkedOut  = {}
-    let inventory   = ss.getSheets()[SHEET_INVENTORY].getRange(RANGE_INVENTORY).getDisplayValues()
 
     inventory.forEach((row) => {
 

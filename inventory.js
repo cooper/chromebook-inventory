@@ -13,5 +13,5 @@ function inventoryFindByBarcode(bc) {
 // 2. a full barcode
 // 3. a partial barcode
 function inventoryFindByUserInput(input) {
-    
+
 }
