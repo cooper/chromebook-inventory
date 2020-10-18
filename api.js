@@ -50,5 +50,5 @@ function handleAPIStatusQuery(request, result) {
     return
   }
 
-
+  result.device = found
 }
