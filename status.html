@@ -31,8 +31,8 @@
         <tr><td>Last sync</td><td class="sync-date">9/12/2020 <span class="small">(22 days ago)</span></td></tr>        
         <tr><td>Last activity</td><td class="activity-date">9/11/2020 <span class="small">(23 days ago)</span></td></tr>        
         <tr><td>Recent user</td><td class="recent-user">mitchell.2292458</td></tr>            
-        <tr><td>Internal IP</td><td class="internal-ip">10.182.103.21</td></tr>            
-        <tr><td>External IP</td><td class="external-ip">169.241.60.20</td></tr>
+        <tr><td>Internal IP</td><td class="internal-ip" style="word-break: break-word; font-size: small;">10.182.103.21</td></tr>            
+        <tr><td>External IP</td><td class="external-ip" style="word-break: break-word; font-size: small;">169.241.60.20</td></tr>
         <tr><td><span title="Location is estimated by querying the external IP address on a third party geolocation service">Location</span></td><td class="location">Paradise, NV</td></tr>
     </table>
 </div>
@@ -88,8 +88,85 @@
 
 <script>
 
-    // focus barcode initially
-    $('#barcode').focus()
+// focus barcode initially
+$('#barcode').focus();
+
+// field classes in column order
+var fields = [
+
+    // COL_INVENTORY_BARCODE           = 0,
+    'barcode',
+
+    // COL_INVENTORY_SERIAL            = 1,
+    'serial',
+
+    // COL_INVENTORY_STATUS            = 2,
+    null,
+
+    // COL_INVENTORY_AS_OF             = 3,
+    null,
+
+    // COL_INVENTORY_CHANGED_BY        = 4,
+    null,
+
+    // COL_INVENTORY_MAKE              = 5,
+    'make',
+
+    // COL_INVENTORY_MODEL             = 6,
+    'model',
+
+    // COL_INVENTORY_FUND              = 7,
+    'fund',
+
+    // COL_INVENTORY_CHECKOUT          = 8,
+    null,
+
+    // COL_INVENTORY_PATRON_ID         = 9,
+    null,
+
+    // COL_INVENTORY_LAST_SYNC         = 10,
+    'sync-date',
+
+    // COL_INVENTORY_LAST_ACTIVITY     = 11,
+    'activity-date',
+
+    // COL_INVENTORY_LAST_DURATION     = 12,
+    null,
+
+    // COL_INVENTORY_LAST_USER         = 13,
+    'recent-user',
+
+    // COL_INVENTORY_PROVISION_STATUS  = 14,
+    'provision-status',
+
+    // COL_INVENTORY_OS_VERSION        = 15,
+    'os-version',
+
+    // COL_INVENTORY_FIRMWARE          = 16,
+    'firmware',
+
+    // COL_INVENTORY_EXPIRATION        = 17,
+    'expiration',
+
+    // COL_INVENTORY_INTERNAL_IP       = 18,
+    'internal-ip',
+
+    // COL_INVENTORY_EXTERNAL_IP       = 19,
+    'external-ip',
+
+    // COL_INVENTORY_ACQUIRED          = 20,
+    'acquired',
+
+    // COL_INVENTORY_COST              = 21,
+    null
+];
+
+function updateDeviceInfo(device) {
+    fields.forEach(function (field, i) {
+        if (!field) return;
+        $('.device-info .' + field).text(device[i]);
+    });
+}
 
 </script>
 
