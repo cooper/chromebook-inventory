@@ -3,7 +3,9 @@
 <h1>Chromebook Status</h1>
 
 <i class="fa fa-barcode"></i>
-<input id="barcode" type="text" placeholder="Scan 14-digit barcode" autocomplete="off" /><br />
+<input id="barcode" type="text" placeholder="Scan 14-digit barcode" autocomplete="off" />
+<i id="loading" class="fa fa-circle-notch fa-spin"></i>
+<br />
 
 <div class="device-info-container">
     <table class="device-info status">
@@ -90,6 +92,31 @@
 
 // focus barcode initially
 $('#barcode').focus();
+$('#loading').hide();
+
+// barcode enter handler
+$('#barcode').keypress(function (e) {
+    if (e.which != 13) return;
+    var input = $('#barcode').val();
+
+    // disable the input until done loading
+    $('#barcode').prop('disabled', true);
+    $('#loading').show();
+
+    // perform the lookup
+    $.ajax({
+        url:            "<?!= url ?>",
+        data:           { action: 'lookup-status', prefix: 'callback', input: input },
+        dataType:       "jsonp",
+        jsonpCallback:  "callback"
+    }).always(function () {
+        $('#loading').hide();
+        $('#barcode').prop('disabled', false);
+        $('#barcode').select();
+    }).done(function (data) {
+        if (data.device) updateDeviceInfo(data.device);
+    });
+});
 
 // field classes in column order
 var fields = [

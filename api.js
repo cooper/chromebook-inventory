@@ -22,6 +22,12 @@ function doGetAction(request) {
   if (handler)
     handler(request, result)
   
+  // return javascript
+  if (request.parameter.prefix) return ContentService.createTextOutput(
+    request.parameters.prefix + '(' + JSON.stringify(result) + ')')
+    .setMimeType(ContentService.MimeType.JAVASCRIPT)
+
+  // return json
   return ContentService.createTextOutput(JSON.stringify(result))
     .setMimeType(ContentService.MimeType.JSON)
 }
