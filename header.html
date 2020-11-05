@@ -7,6 +7,52 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/5f2931af2a.js" crossorigin="anonymous"></script>
 
+<script>
+
+const statuses = {          //  [ class,         display, icon, tooltip ]
+    'CHECKED OUT':              [ 'checked-out',    'Checked Out',              'user',                 'In the possession of a user'],
+    'AVAILABLE':                [ 'available',      'Available',                'check',                'Fully functional and ready for checkout'],
+    'AVAILABLE (COSMETIC)':     [ 'available',      'Available (Cosmetic)',     'check',                'Fully functional but with cosmetic issues, available for checkout as last resort'],
+    'CIRCULATION':              [ 'available',      'Circulation',              'circle',               'Fully working order and acceptable condition'],
+    'CIRCULATION (COSMETIC)':   [ 'available',      'Circulation (Cosmetic)',   'circle',               'Substandard cosmetic condition although fully functional'],
+    'INCOMING':                 [ 'incoming',       'Incoming',                 'angle-double-right',   'Pending inspection and functional testing process'],
+    'OUT FOR REPAIR':           [ 'repair',         'Out for Repair',           'tools',                'Off-campus for repairs'],
+    'PENDING REPAIR':           [ 'repair',         'Pending Repair',           'tools',                'On-campus but needs repairs'],
+    'BER-FOR PARTS':            [ 'disposed',       'BER/For Parts',            'trash-alt',            'Disposed due to issues, usable parts salvaged for other repairs'],
+    'BER-WARRANTY REPLACED':    [ 'disposed',       'BER/Warranty Replaced',    'trash-alt',            'Disposed due to issues, warranty replaced it with a different Chromebook'],
+    'BER-OTHER':                [ 'disposed',       'BER/Other',                'trash-alt',            'Disposed for some unspecified reason'],
+    'MARKED LOST':              [ 'lost',           'Marked Lost',              'binoculars',           'Location is uncertain'],
+    'UNKNOWN':                  [ 'unknown',        'Unknown',                  'question-circle',      'Fate of the device is not known'],
+    'UNKNOWN-NR21':             [ 'unknown',        'Unknown/NR21',             'question-circle',      'Fate unknown, originally was purchased with NR21 Grant'],
+    'UNKNOWN-GOOGLE':           [ 'unknown',        'Unknown/Google',           'question-circle',      'Fate unknown, originally discovered on Google Admin'],
+    'UNKNOWN-SAP':              [ 'unknown',        'Unknown/SAP',              'question-circle',      'Fate unknown, originally discovered on SAP'],
+    'TRANSFERRED':              [ 'disposed',       'Transferred',              'exchange-alt',         'Transferred to another school']
+}
+
+function statusHTML(status, stud, showAvail) {
+    if (status == 'CIRCULATION' || status == 'CIRCULATION (COSMETIC)') {
+
+        // checked out!
+        if (stud) {
+            let s = statuses['CHECKED OUT'].slice()
+            s[1] = stud // replace "Checked Out" with user's name
+            return singleStatusHTML(s)
+        }
+
+        // available!
+        if (showAvail)
+            status = status.replace('CIRCULATION', 'AVAILABLE')
+
+    }
+    return singleStatusHTML(statuses[status])
+}
+
+function singleStatusHTML(s) {
+    return `<span class="device-status ${s[0]}" title="${s[3]}"><i class="fa fa-${s[2]}"></i> ${s[1]}</span>`
+}
+
+</script>
+
 <style>
 
 body {
@@ -205,8 +251,8 @@ table.last-expand td:last-child {
     text-transform: uppercase;
 }
 
+.device-status.checked-out  { background-color: #eeeeee; text-transform: none; }
 .device-status.available    { background-color: #b7e1cd; }
-.device-status.checked-out  { background-color: #eeeeee; }
 .device-status.incoming     { background-color: #9fc5e8; }
 .device-status.repair       { background-color: #fce8b2; }
 .device-status.lost         { background-color: #b4a7d6; }

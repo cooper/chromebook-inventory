@@ -189,10 +189,15 @@ var fields = [
 ];
 
 function updateDeviceInfo(device) {
+
+    // update each field
     fields.forEach(function (field, i) {
         if (!field) return;
         $('.device-info .' + field).text(device[i]);
     });
+
+    // update status
+    $('.device-info .status').html(statusHTML(device[2], device[8], true));
 }
 
 </script>
