@@ -91,18 +91,19 @@
 <script>
 
 // focus barcode initially
-$('#barcode').focus();
-$('#loading, #device-container').hide();
+$('#barcode').focus()
+$('#loading, #device-container').hide()
 
 // barcode enter handler
-$('#barcode').keypress(function (e) {
-    if (e.which != 13) return;
-    var input = $('#barcode').val();
+$('#barcode').keypress((e) => {
+    if (e.which != 13)
+        return
+    let input = $('#barcode').val()
 
     // disable the input until done loading
-    $('#barcode').prop('disabled', true);
-    $('#loading').show();
-    $('#device-container').hide();
+    $('#barcode').prop('disabled', true)
+    $('#loading').show()
+    $('#device-container').hide()
 
     // perform the lookup
     $.ajax({
@@ -110,22 +111,22 @@ $('#barcode').keypress(function (e) {
         data:           { action: 'lookup-status', prefix: 'callback', input: input },
         dataType:       "jsonp",
         jsonpCallback:  "callback"
-    }).always(function () {
-        $('#loading').hide();
-        $('#barcode').prop('disabled', false);
-        $('#barcode').select();
-    }).done(function (data) {
+    }).always(() => {
+        $('#loading').hide()
+        $('#barcode').prop('disabled', false)
+        $('#barcode').select()
+    }).done((data) => {
         if (data.device) {
-            updateDeviceInfo(data.device);
-            $('#device-container').show();
+            updateDeviceInfo(data.device)
+            $('#device-container').show()
         }
         if (data.error)
-            alert(data.error);
+            alert(data.error)
     });
 });
 
 // field classes in column order
-var fields = [
+let fields = [
 
     // COL_INVENTORY_BARCODE           = 0,
     'barcode',
@@ -192,18 +193,19 @@ var fields = [
 
     // COL_INVENTORY_COST              = 21,
     null
-];
+]
 
 function updateDeviceInfo(device) {
 
     // update each field
-    fields.forEach(function (field, i) {
-        if (!field) return;
-        $('.device-info .' + field).text(device[i]);
-    });
+    fields.forEach((field, i) => {
+        if (!field)
+            return
+        $('.device-info .' + field).text(device[i])
+    })
 
     // update status
-    $('.device-info .status').html(statusHTML(device[2], device[8], true));
+    $('.device-info .status').html(statusHTML(device[2], device[8], true))
 }
 
 </script>

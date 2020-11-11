@@ -74,8 +74,8 @@
 
 <script>
 
-google.charts.load('current', { 'packages': [ 'corechart', 'table' ] });
-google.charts.setOnLoadCallback(drawCharts);
+google.charts.load('current', { 'packages': [ 'corechart', 'table' ] })
+google.charts.setOnLoadCallback(drawCharts)
 
 function drawCharts() {
 
@@ -99,7 +99,7 @@ function drawCharts() {
             7: { color: '#f4c7c3' }, // Transferred
             8: { color: '#ead1dc' }  // Unknown
         }
-    });
+    })
 
     // available chart
     drawChart(google.visualization.BarChart, 'model-chart', <?!= modelChartJSON ?>, {
@@ -118,15 +118,14 @@ function drawCharts() {
             right:  0
         }
     })
-
 }
 
 function drawChart(type, id, array, options) {
     if (!options)
-        options = {};
-    var data = google.visualization.arrayToDataTable(array);
-    var chart = new type(document.getElementById(id));
-    chart.draw(data, options);
+        options = {}
+    let data = google.visualization.arrayToDataTable(array)
+    let chart = new type(document.getElementById(id))
+    chart.draw(data, options)
 }
 
 </script>
