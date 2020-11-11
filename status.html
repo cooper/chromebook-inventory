@@ -102,6 +102,7 @@ $('#barcode').keypress(function (e) {
     // disable the input until done loading
     $('#barcode').prop('disabled', true);
     $('#loading').show();
+    $('#device-container').hide();
 
     // perform the lookup
     $.ajax({
@@ -114,9 +115,12 @@ $('#barcode').keypress(function (e) {
         $('#barcode').prop('disabled', false);
         $('#barcode').select();
     }).done(function (data) {
-        if (data.device)
+        if (data.device) {
             updateDeviceInfo(data.device);
-        $('#device-container').show();
+            $('#device-container').show();
+        }
+        if (data.error)
+            alert(data.error);
     });
 });
 
